@@ -1,3 +1,4 @@
+// index.js > App 의 진입점 역할 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
@@ -8,6 +9,7 @@ ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
+  // /public/index.html 에서 넘어옴 (id = 'root')
   document.getElementById('root')
 );
 
