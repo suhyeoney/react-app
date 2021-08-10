@@ -1,4 +1,4 @@
-// index.js > App 의 진입점 역할 
+// index.js > App 의 진입점 역할
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
