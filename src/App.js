@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
+import Subject from './components/Subject';
 import './App.css';
-
-class Subject extends Component {
-  render() {
-    return (
-      <header>
-        <h1>{ this.props.title }</h1>
-        { this.props.content }
-      </header>
-    );
-  }
-}
 
 class App extends Component {
   render() {
