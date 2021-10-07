@@ -1,36 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Home from './components/Home';
+import Dashboard from './components/dashboard/Dashboard'
 import './App.css';
+import { BrowserRouter, Route} from 'react-router-dom';
 
 class App extends Component {
-
-  state = {
-    username: null
-  };
-
-  componentDidMount() {
-    fetch('/api/getUsername')
-    .then(res => res.json())
-    .then(user => this.setState({
-      username: user.username
-    }));
-}
-
-// state 의 변화가 감지될 때마다 render() 함수 실행
+// state 의 변화가 감지될 때마다 render() 함수 실행 
   render() {
-    const { username } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <div>
-          {username ? <h1>{`Hello ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
-        </div>
+        <BrowserRouter>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/dashboard" component={Dashboard} />
+        </BrowserRouter>
       </div>
     );
   }
