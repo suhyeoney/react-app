@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-import Subject from './components/Subject';
-import Content from './components/Content';
-import Option from './components/Option';
 import './App.css';
 
 class App extends Component {
@@ -10,23 +7,33 @@ class App extends Component {
     super(props);
     // Initialize state
     this.state = {
-      subject: { title: 'WEB - STATE', sub: 'Hello React World - State !' },
-      content: { content: 'Content Sample' },
-      elements: [
-        { id: 1, title: 'HTML', description: 'HTML is for information.' },
-        { id: 2, title: 'CSS', description: 'CSS is for design.' },
-        { id: 3, title: 'Javascript',description: 'JavaScript is for interactive.' }
-      ]
-      
+      // subject: { title: 'WEB - STATE', sub: 'Hello React World - State !' },
+      // content: { content: 'Content Sample' },
+      // elements: [
+      //   { key: 'html', id: 1, title: 'HTML', description: 'HTML is for information.' },
+      //   { key: 'css', id: 2, title: 'CSS', description: 'CSS is for design.' },
+      //   { key: 'javascript', id: 3, title: 'Javascript',description: 'JavaScript is for interactive.' }
+      // ]
+      username: null
     }
   }
 
+  componentDidMount() {
+    fetch('http://localhost:3001/api')
+        .then(res=>res.json())
+        .then(data=>this.setState({username:data.username}));
+}
+
   render() {
+    const {username} = this.state;
     return (
       <div className="App">
-        <Subject title={ this.state.subject.title } content={ this.state.subject.sub }></Subject>
+        {/* <Subject title={ this.state.subject.title } content={ this.state.subject.sub }></Subject>
         <Option data={ this.state.elements }></Option>
-        <Content content={ this.state.content.content }></Content>
+        <Content content={ this.state.content.content }></Content> */}
+        <header className='App-header'>
+          {username ? `Hello ${username}` : 'Hello World'}
+        </header>
       </div>
     );
   }
