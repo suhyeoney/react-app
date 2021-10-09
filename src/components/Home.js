@@ -16,9 +16,9 @@ class Home extends Component {
           username: user.username
         }));
     }
-    
+
     render() {
-        const { username } = this.state;
+        const username = this.state;
         return (
         <div>
             <header className="App-header"> 

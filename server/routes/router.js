@@ -1,3 +1,4 @@
+const { table } = require('console');
 const express = require('express');
 const os = require('os');
 const router = express.Router();
@@ -12,8 +13,20 @@ router.get('/api/getUsername', function (req, res, next) {
     );
 });
 
-router.get('/getAllData', (req, res) => {
-    database.query("SELECT * FROM `RAIL_MGMT_TRAIN`", (err, rows) => {
+router.get('/getAllTrainsData', (req, res) => {
+    database.query("SELECT * FROM RAIL_MGMT_TRAIN", (err, rows) => {
+        if(!err) {
+            res.send(rows);
+        } else {
+            console.log(`query error : ${err}`);
+            res.send(err);
+        }
+    });
+});
+
+router.get('/getColumnNames', (req, res) => {
+    const tableName = req.query.tableName;
+    database.query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'rail' AND TABLE_NAME = '" + tableName + "'", (err, rows) => {
         if(!err) {
             res.send(rows);
         } else {
