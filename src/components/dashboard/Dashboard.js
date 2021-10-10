@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TrainInfoTable from './TrainInfoTable';
+import TrainListTable from './TrainListTable';
 
 class Dashboard extends Component {
     state = {
@@ -28,12 +28,13 @@ class Dashboard extends Component {
             obj.sequenceNo = index + 1;
             obj.trainCode = element.TRAIN_CD;
             obj.trainName = element.TRAIN_NM;
+            obj.trainDescription = element.TRAIN_DESC;
             return obj;
         });
         // const trainList = trainListData.map((element, index) =>
         //     <li key={ index }>
         //         { index + 1 } : { element.trainCode }
-        //     </li>s
+        //     </li>
         // );
         console.log(this.state.columnListData);
         const columnList = this.state.columnListData.filter(function (element) { 
@@ -42,13 +43,16 @@ class Dashboard extends Component {
             if(element.COLUMN_NAME === 'TRAIN_CD') return 'Train Code';
             else return 'Train Name';
         });
-        columnList.unshift('Sequence No.');
+        columnList.unshift('No.');
         console.log(columnList);
         console.log(trainList);
         return (
-        <div>
-            <TrainInfoTable columns={ columnList } data={ trainList  } />
-        </div>
+            <div>
+                <header>
+                    <h1>Train List</h1>
+                </header>
+                <TrainListTable columns={ columnList } data={ trainList  } />
+            </div>
         );
     }
   }
