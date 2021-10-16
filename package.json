@@ -158,6 +158,8 @@
   "proxy": "http://localhost:4000",
   "devDependencies": {
     "concurrently": "^6.3.0",
-    "nodemon": "^2.0.13"
+    "loader": "^2.1.1",
+    "nodemon": "^2.0.13",
+    "style": "0.0.3"
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
+import './dashboard.css';
 
 function TrainInfoTable({ columns, data }) {
   const [
@@ -10,10 +11,10 @@ function TrainInfoTable({ columns, data }) {
     selectedData, setSelectedData
   ] = useState(null);
 
-  const expandModal = function (data) {
+  const openModal = function (data) {
     setSelectedData(data);
     setModalOpen(true);
-  };
+  }; 
 
   const closeModal = function () {
     setSelectedData(null);
@@ -21,7 +22,7 @@ function TrainInfoTable({ columns, data }) {
   };
 
   return (
-    <table>
+    <table className="Train-info-table">
       <thead>
         <tr>
           {columns.map((column) => (
@@ -30,39 +31,18 @@ function TrainInfoTable({ columns, data }) {
         </tr>
       </thead>
       <tbody>
-        {data.map(({sequenceNo , trainCode, trainName, trainDescription }, index) => (
-          <tr key={sequenceNo + trainCode + trainName}>
-            <td>{sequenceNo}</td>
-            <td>{trainCode}</td>
-            <td>{trainName}</td>
-            <td>
-              {/* <button onClick={
-                function() {
-                  setModalOpen(true);
-                }
-              }>Open Detail Modal</button>
-              <Modal
-                isOpen={isModalOpen}
-                onRequestClose={
-                  function() {
-                    setModalOpen(false);
-                  }
-                }
-              >
-                {trainDescription}
-                <div>
-                  <button onClick={
-                    function() {
-                      setModalOpen(false);
-                    }
-                  }>Close</button>
-                </div>
-              </Modal> */}
-              
+        {data.map(({sequenceNo , trainCode, trainName, trainDetails }, index) => (
+          <tr key={sequenceNo + trainCode }>
+            <td className="Train-info-table">{sequenceNo}</td>
+            <td className="Train-info-table">{trainCode}</td>
+            <td className="Train-info-table">{trainName}</td>
+            <td className="Train-info-table">
               <button onClick={
                 function () {
-                  console.log(trainDescription);
-                  expandModal(trainDescription);
+                  console.log(trainDetails);
+                  /** cf ) 상위 컴포넌트(TrainTable.js)에서 하위 컴포넌트(Modal)로 Object 타입의 파라미터는 전달할 수 없으므로,
+                  (문자열만 전달 가능) Object 타입의 파라미터를 직렬화(JSON.stringify) 하여 전달한다. **/
+                  openModal(JSON.stringify(trainDetails));
                 }
               }>
                 Open Details
@@ -73,6 +53,7 @@ function TrainInfoTable({ columns, data }) {
         <Modal
           isOpen={isModalOpen}
           onRequestClose={closeModal}
+          object={selectedData}
         >
           <h2>{ selectedData }</h2>
           <div>
