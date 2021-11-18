@@ -4,7 +4,7 @@ const os = require('os');
 const router = express.Router();
 const database = require('../dbconnection');
 
-router.get('/api/getUsername', function (req, res, next) {
+router.get('/getUsername', function (req, res, next) {
     // returns value
     res.send(
         {

@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import TrainListTable from './TrainListTable';
+import Button from 'react-bootstrap/Button';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Dashboard extends Component {
-    state = {
-        trainListData: [],
-        columnListData: [],
-        tableName: 'RAIL_MGMT_TRAIN_INFO'
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            isEditMode: false,
+            trainListData: [],
+            columnListData: [],
+            tableName: 'RAIL_MGMT_TRAIN_INFO'
+        };
+        // this.handleEditModeFlag = this.handleEditModeFlag.bind(this);
+        // this.editData = this.editData.bind(this);
+    }
 
     componentDidMount() {
-        fetch('/getAllTrainsInfo')
+        fetch('/api/getAllTrainsInfo')
         .then(res => res.json())
         .then(data => this.setState({
            trainListData: data
@@ -22,7 +31,14 @@ class Dashboard extends Component {
         // }));
     }
 
+    handleEditModeFlag() {
+        this.setState(prevState => ({
+            isEditMode: !prevState.isEditMode
+        }));
+    }
+
     render() {
+
         const trainList = this.state.trainListData.map(function (element, index) {
             let obj = {};
             let subObj = {};
@@ -38,8 +54,16 @@ class Dashboard extends Component {
 
         const columnList = trainList.length > 0 ? Object.getOwnPropertyNames(trainList[0]) : [];
 
-        console.log(trainList);
-        console.log(columnList);
+        const isEditMode = this.state.isEditMode;
+        let table;
+        if(isEditMode) {
+            table = <span className="float-right" ><Button variant="success" onClick={() => this.handleEditModeFlag() }>Save</Button>
+            <Button variant="danger" onClick={() => this.handleEditModeFlag() }>Cancel</Button></span>;
+        } else {
+            table = <span className="float-right"><Button variant="dark" onClick={() => this.handleEditModeFlag() }>Edit</Button></span>;
+        }
+
+
         // const trainList = trainListData.map((element, index) =>
         //     <li key={ index }>
         //         { index + 1 } : { element.trainCode }
@@ -58,9 +82,12 @@ class Dashboard extends Component {
         return (
             <div>
                 <header>
-                    <h1>Train List</h1>
+                    <div>
+                        <h2 className="float-left">Train Info Current Status</h2>
+                    </div>
+                    { table }
                 </header>
-                <TrainListTable columns={ columnList } data={ trainList  } />
+                <TrainListTable columns={ columnList } data={ trainList } isEditMode={ isEditMode }/>
             </div>
         );
     }

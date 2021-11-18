@@ -19,6 +19,7 @@ class Home extends Component {
 
     render() {
         const username = this.state;
+        console.log(username);
         return (
         <div>
             <header className="App-header"> 
@@ -31,7 +32,7 @@ class Home extends Component {
                 To get started, edit <code>src/App.js</code> and save to reload.
             </p>
             <div>
-                {username ? <h1>{`Hello ~ ${username}`}</h1> : <h1>Loading.. please wait!</h1>}
+                {username !== null ? <h1>{`Hello ~ ${username.username}`}</h1> : <h1>Loading.. please wait!</h1>}
             </div>
         </div>
       );
