@@ -6,14 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TrainInfoTable({ columns, data, isEditMode }) {
 
-  // TODO : list의 useState > empty 리턴 이슈 처리 
-  // const [
-  //   list, setList
-  // ] = useState(data);
-
-  // console.log(list);
-  // console.log(setList);
-
   const [
     isModalOpen, setModalOpen,
   ] = useState(false);
@@ -56,9 +48,10 @@ function TrainInfoTable({ columns, data, isEditMode }) {
                 onClick={
                   function () {
                     console.log(trainDetails);
+                    let jsonObj = JSON.parse(JSON.stringify(trainDetails));
                     /** cf ) 상위 컴포넌트(TrainTable.js)에서 하위 컴포넌트(Modal)로 Object 타입의 파라미터는 전달할 수 없으므로,
-                    (문자열만 전달 가능) Object 타입의 파라미터를 직렬화(JSON.stringify) 하여 전달한다. **/
-                    openModal(JSON.stringify(trainDetails));
+                    (문자열만 전달 가능) Object 타입의 파라미터를 직렬화(JSON.stringify), json화(JSON.parse)하여 임시 변수에 저장 후 이 객체의 프로퍼티 string 으로 전달한다. **/
+                    openModal(jsonObj.trainMaxSpeed);
                   }
               }>
                 Open Details
