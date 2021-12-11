@@ -6,72 +6,152 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TrainInfoTable({ columns, data, isEditMode }) {
 
+  const initTrainDetails = { trainMaxSpeed: null, trainMinCars:  null, trainMaxCars: null };
+
   const [
     isModalOpen, setModalOpen,
   ] = useState(false);
 
-  const [
-    selectedData, setSelectedData
-  ] = useState(null);
+  const [ trainDetails, setTrainDetails ] = useState(initTrainDetails);
 
-  const openModal = function (data) {
-    setSelectedData(data);
+  const openModal = (data) => {
+    setTrainDetails(prevState => ({
+      ...prevState,
+      trainMaxSpeed: data.trainMaxSpeed,
+      trainMinCars: data.trainMinCars,
+      trainMaxCars: data.trainMaxCars
+    }));
     setModalOpen(true);
   }; 
 
-  const closeModal = function () {
-    setSelectedData(null);
+  const closeModal = () => {
+    setTrainDetails(initTrainDetails);
     setModalOpen(false);
   };
 
-  console.log(isEditMode);
+  const checkIsNull = (value) => {
+    if (value === null || value === 'undefined') return '-';
+    else return value;
+  };
 
-  return (
-    <Table striped bordered hover variant="dark" responsive="sm">
-      <thead>
-        <tr>
-          {columns.map((column) => (
-            <th key={column}>{column}</th> 
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        {data.map(({sequenceNo , trainCode, trainName, trainDetails }, index) => (
-          <tr key={sequenceNo + trainCode }>
-            <td>{sequenceNo}</td>
-            <td>{trainCode}</td>
-            <td>{trainName}</td>
-            <td>
-              <Button 
-                variant="info" 
-                disabled={isEditMode}
-                onClick={
-                  function () {
-                    console.log(trainDetails);
-                    let jsonObj = JSON.parse(JSON.stringify(trainDetails));
-                    /** cf ) 상위 컴포넌트(TrainTable.js)에서 하위 컴포넌트(Modal)로 Object 타입의 파라미터는 전달할 수 없으므로,
-                    (문자열만 전달 가능) Object 타입의 파라미터를 직렬화(JSON.stringify), json화(JSON.parse)하여 임시 변수에 저장 후 이 객체의 프로퍼티 string 으로 전달한다. **/
-                    openModal(jsonObj.trainMaxSpeed);
-                  }
-              }>
-                Open Details
-              </Button>
-            </td>
+  // console.log(isEditMode);
+  if(!isEditMode) {
+    return (
+      <Table striped bordered hover variant="dark" responsive="sm">
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th key={column}>{column}</th> 
+            ))}
           </tr>
-        ))}
-        <Modal
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          object={selectedData}
-        >
-          <h2>{ selectedData }</h2>
-          <div>
-            <Button onClick={() => closeModal()}>Close</Button>
-          </div>
-        </Modal>
-      </tbody>
-    </Table>
-  );
+        </thead>
+        <tbody>
+          {data.map(({sequenceNo , trainCode, trainName, trainDetails }, index) => (
+            <tr key={sequenceNo + trainCode }>
+              <td>{sequenceNo}</td>
+              <td>{trainCode}</td>
+              <td>{trainName}</td>
+              <td>
+                <Button 
+                  variant="info" 
+                  disabled={isEditMode}
+                  onClick={ () => {
+                      const jsonObj = trainDetails;    
+                      openModal(jsonObj);
+                    }
+                }>
+                  Open Details
+                </Button>
+              </td>
+            </tr>
+          ))}
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            shouldCloseOnOverlayClick={false}
+          >
+            <Table striped bordered  hover responsive="sm">
+                <thead>
+                  <tr>
+                    <th>Train Max Speed</th>
+                    <th>Number of Minimum Cars</th>
+                    <th>Number of Maximum Cars</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{ checkIsNull(trainDetails.trainMaxSpeed) } km/h</td>
+                    <td>{ checkIsNull(trainDetails.trainMinCars) } cars</td>
+                    <td>{ checkIsNull(trainDetails.trainMaxCars) } cars</td>
+                  </tr>
+                </tbody>
+            </Table>
+            <div>
+              <Button onClick={() => closeModal()}>Close</Button>
+            </div>
+          </Modal>
+        </tbody>
+      </Table>
+    );
+  } else {
+    return (
+      <Table striped bordered hover variant="dark" responsive="sm">
+        <thead>
+          <tr>
+            {columns.map((column) => (
+              <th key={column}>{column}</th> 
+            ))}
+          </tr>
+        </thead>
+        <tbody >
+          {data.map(({sequenceNo , trainCode, trainName, trainDetails }, index) => (
+            <tr key={sequenceNo + trainCode }>
+              <td>{sequenceNo}</td>
+              <td>{trainCode}</td>
+              <td>{trainName}</td>
+              <td>
+                <Button 
+                  variant="info" 
+                  disabled={isEditMode}
+                  onClick={ () => {
+                      const jsonObj = trainDetails;    
+                      openModal(jsonObj);
+                    }
+                }>
+                  Open Details
+                </Button>
+              </td>
+            </tr>
+          ))}
+          <Modal
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            shouldCloseOnOverlayClick={false}
+          >
+            <Table striped bordered  hover responsive="sm">
+                <thead>
+                  <tr>
+                    <th>Train Max Speed</th>
+                    <th>Number of Minimum Cars</th>
+                    <th>Number of Maximum Cars</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>{ checkIsNull(trainDetails.trainMaxSpeed) } km/h</td>
+                    <td>{ checkIsNull(trainDetails.trainMinCars) } cars</td>
+                    <td>{ checkIsNull(trainDetails.trainMaxCars) } cars</td>
+                  </tr>
+                </tbody>
+            </Table>
+            <div>
+              <Button onClick={() => closeModal()}>Close</Button>
+            </div>
+          </Modal>
+        </tbody>
+      </Table>
+    );
+  }
 }
 
 export default TrainInfoTable;
