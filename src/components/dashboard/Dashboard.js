@@ -13,8 +13,6 @@ class Dashboard extends Component {
             columnListData: [],
             tableName: 'RAIL_MGMT_TRAIN_INFO'
         };
-        // this.handleEditModeFlag = this.handleEditModeFlag.bind(this);
-        // this.editData = this.editData.bind(this);
     }
 
     componentDidMount() {
@@ -23,15 +21,9 @@ class Dashboard extends Component {
         .then(data => this.setState({
            trainListData: data
         }));
-
-        // fetch('/getColumnNames?tableName=' + this.state.tableName)
-        // .then(res => res.json())
-        // .then(data => this.setState({
-        //     columnListData: data
-        // }));
     }
 
-    handleEditModeFlag() {
+    handleEditModeFlag(type) {
         this.setState(prevState => ({
             isEditMode: !prevState.isEditMode
         }));
@@ -58,26 +50,10 @@ class Dashboard extends Component {
         let table;
         if(isEditMode) {
             table = <span className="float-right" ><Button variant="success" onClick={() => this.handleEditModeFlag() }>Save</Button>
-            <Button variant="danger" onClick={() => this.handleEditModeFlag() }>Cancel</Button></span>;
+            <Button variant="danger" onClick={() => this.handleEditModeFlag('cancel') }>Cancel</Button></span>;
         } else {
             table = <span className="float-right"><Button variant="dark" onClick={() => this.handleEditModeFlag() }>Edit</Button></span>;
         }
-
-
-        // const trainList = trainListData.map((element, index) =>
-        //     <li key={ index }>
-        //         { index + 1 } : { element.trainCode }
-        //     </li>
-        // );
-        // const columnList = this.state.columnListData.filter(function (element) { 
-        //     return element.COLUMN_NAME === 'TRAIN_CD' || element.COLUMN_NAME === 'TRAIN_NM';
-        // }).map(function (element) {
-        //     if(element.COLUMN_NAME === 'TRAIN_CD') return 'Train Code';
-        //     else return 'Train Name';
-        // });
-        // columnList.unshift('No.');
-        // console.log(columnList);
-        // console.log(trainList);
 
         return (
             <div>
