@@ -6,6 +6,8 @@ const cors = require('cors');
 const port = process.env.PORT || 3001;
 
 app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, '..', 'public/')));
 
 app.use("/api", router); // '/api' 로 시작하는 모든 요청을 router.js 로 넘겨줌

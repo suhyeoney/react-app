@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function TrainDetailModal({ data, modalOpen, setModalOpen, closeModal }) {
 
-	const checkIsNull = (value) => {
+	const checkIsEmpty = (value) => {
 		if (value === null || value === 'undefined') return '-';
 		else return value;
 	};
@@ -27,9 +27,9 @@ function TrainDetailModal({ data, modalOpen, setModalOpen, closeModal }) {
 				</thead>
 				<tbody>
 				<tr>
-					<td>{ checkIsNull(data.trainMaxSpeed) } km/h</td>
-					<td>{ checkIsNull(data.trainMinCars) } cars</td>
-					<td>{ checkIsNull(data.trainMaxCars) } cars</td>
+					<td>{ checkIsEmpty(data.trainMaxSpeed) } km/h</td>
+					<td>{ checkIsEmpty(data.trainMinCars) } cars</td>
+					<td>{ checkIsEmpty(data.trainMaxCars) } cars</td>
 				</tr>
 				</tbody>
 			</Table>
