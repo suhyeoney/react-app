@@ -4,7 +4,7 @@ import lodash from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TrainInfoTable from './TrainInfoTable';
 import EditTrainInfoTable from './EditTrainInfoTable';
-import AddTrainInfoModal from './AddTrainInfoModal';
+import AddTrainInfo from './AddTrainInfo';
 
 class Dashboard extends Component {
 
@@ -117,7 +117,7 @@ class Dashboard extends Component {
             table = <EditTrainInfoTable data={ trainList } isDetailModalBtnDisabled={ true } setTrainDataList={ this.setTrainDataList } />;
         } else { // 보기 모드
             button = <span className="float-right"><Button variant="primary" onClick={() => 
-                <AddTrainInfoModal></AddTrainInfoModal>
+                <AddTrainInfo></AddTrainInfo>
             }>Add</Button>
                 <Button variant="dark" onClick={() => this.handleEditModeFlag('edit') }>Edit</Button></span>;
             table = <TrainInfoTable data={ trainList } isDetailModalBtnDisabled={ false }/>;
