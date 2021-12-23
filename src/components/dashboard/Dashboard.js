@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import lodash from 'lodash';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TrainInfoTable from './TrainInfoTable';
 import EditTrainInfoTable from './EditTrainInfoTable';
-const _ = require('lodash');
+import AddTrainInfoModal from './AddTrainInfoModal';
 
 class Dashboard extends Component {
 
@@ -29,7 +30,7 @@ class Dashboard extends Component {
     }
 
     updateList(req) {
-        let originArr = _.cloneDeep(this.state.originListData);
+        let originArr = lodash.cloneDeep(this.state.originListData);
         req.forEach((element) => {
             originArr.forEach((subElement) => {
                 if(element.TRAIN_CD === subElement.TRAIN_CD && element.TRAIN_NM !== subElement.TRAIN_NM) {
@@ -47,9 +48,9 @@ class Dashboard extends Component {
                 }
             });
         });
-        this.setState({
-            originListData: [...this.state.trainListData]
-        });
+        // this.setState({
+        //     originListData: [...this.state.trainListData]
+        // });
         this.fetchGetApi('/api/getAllTrainsInfo', ['trainListData', 'originListData']);
     }
 
@@ -63,7 +64,7 @@ class Dashboard extends Component {
     }
     
     setTrainDataList = (index, propertyName) => (e) => {
-        let newArr = _.cloneDeep(this.state.trainListData); // lodash > cloneDeep() 을 사용하여 배열 복사 (사본 : newArr, 원본 : this.state.originListData)
+        let newArr = lodash.cloneDeep(this.state.trainListData); // lodash > cloneDeep() 을 사용하여 배열 복사 (사본 : newArr, 원본 : this.state.originListData)
         newArr[index][propertyName] = e.target.value;
         this.setState({
             trainListData: [...newArr]
@@ -76,7 +77,7 @@ class Dashboard extends Component {
             this.updateList(this.state.trainListData);
         } else if(type === 'cancel') {
             this.setState({
-                trainListData: [...this.state.originListData]
+                trainListData: lodash.cloneDeep(this.state.originListData)
             });
         } else {
         }
@@ -115,7 +116,10 @@ class Dashboard extends Component {
             <Button variant="danger" onClick={() => this.handleEditModeFlag('cancel') }>Cancel</Button></span>;
             table = <EditTrainInfoTable data={ trainList } isDetailModalBtnDisabled={ true } setTrainDataList={ this.setTrainDataList } />;
         } else { // 보기 모드
-            button = <span className="float-right"><Button variant="dark" onClick={() => this.handleEditModeFlag('edit') }>Edit</Button></span>;
+            button = <span className="float-right"><Button variant="primary" onClick={() => 
+                <AddTrainInfoModal></AddTrainInfoModal>
+            }>Add</Button>
+                <Button variant="dark" onClick={() => this.handleEditModeFlag('edit') }>Edit</Button></span>;
             table = <TrainInfoTable data={ trainList } isDetailModalBtnDisabled={ false }/>;
         }
 
