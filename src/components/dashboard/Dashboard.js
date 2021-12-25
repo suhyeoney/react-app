@@ -12,6 +12,7 @@ class Dashboard extends Component {
         super(props);
         this.state = { 
             isEditMode: false,
+            isAdditionMode: false,
             trainListData: [],
             originListData: [],
         };
@@ -86,6 +87,12 @@ class Dashboard extends Component {
         }));
     }
 
+    handleAdditionModeFlag() {
+        this.setState(prevState => ({
+            isAdditionMode: !prevState.isAdditionMode
+        }));
+    }
+
     render() {
 
         const mapList = (list) => {
@@ -109,6 +116,8 @@ class Dashboard extends Component {
         const trainList = mapList(this.state.trainListData);
 
         const isEditMode = this.state.isEditMode;
+        const isAdditionMode = this.state.isAdditionMode;
+        
         let button = null;
         let table = null;
         if(isEditMode) { // 편집 모드
@@ -117,10 +126,15 @@ class Dashboard extends Component {
             table = <EditTrainInfoTable data={ trainList } isDetailModalBtnDisabled={ true } setTrainDataList={ this.setTrainDataList } />;
         } else { // 보기 모드
             button = <span className="float-right"><Button variant="primary" onClick={() => 
-                <AddTrainInfo></AddTrainInfo>
+                this.handleAdditionModeFlag()
             }>Add</Button>
                 <Button variant="dark" onClick={() => this.handleEditModeFlag('edit') }>Edit</Button></span>;
             table = <TrainInfoTable data={ trainList } isDetailModalBtnDisabled={ false }/>;
+        }
+
+        if(isAdditionMode) { // 데이터 신규 추가 모드
+            table = <AddTrainInfo data={'Addition Mode Test Page'} />
+            
         }
 
         return (
