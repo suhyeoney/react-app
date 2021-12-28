@@ -43,6 +43,30 @@ router.post('/updateAllTrainsInfo', (req, res) => {
     });
 });
 
+router.post('/insertNewTrainInfo', async (req, res) => {
+    let trainCode = req.body.trainCode;
+    let trainName = req.body.trainName;
+    let trainMaxSpeed = req.body.trasinMaxSpeed;
+    let trainMinCars = req.body.trainMinCars;
+    let trainMaxCars = req.body.trainMaxCars;
+    let connection = await database.getConnection();
+
+//     try {
+//         await connection.beginTransaction();
+//         let resultCommonCode = await database.query("INSERT INTO rail.RAIL_MGMT_COMMON_CODE (CODE_STR, CODE_NM, CRTD_DT, MDFD_DT) VALUES ('"
+//         + trainCode + "', '" + trainName + "', NOW(), NOW())"
+//     }
+
+//     , (err, rows) => {
+//         if(!err) {
+//             console.log('Insert Success !');
+//         } else {
+//             console.log(`query error : ${err}`);
+//             res.send(err);
+//         }
+//     });
+// });
+
 // router.get('/getColumnNames', (req, res) => {
 //     const tableName = req.query.tableName;
 //     database.query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'rail' AND TABLE_NAME = '" + tableName + "'", (err, rows) => {
