@@ -6,6 +6,10 @@ import { BrowserRouter, Route} from 'react-router-dom';
 import Modal from 'react-modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+import { connect } from 'react-redux';
+import * as trainActions from './reducers/trainFetch';
+import { bindActionCreators } from 'redux';
+
 class App extends Component {
 // state 의 변화가 감지될 때마다 render() 함수 실행 
   render() {
