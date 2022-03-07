@@ -5,6 +5,8 @@ import './App.css';
 import { BrowserRouter, Route} from 'react-router-dom';
 import Modal from 'react-modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Counter from './screens/Counter';
+import Todo from './screens/Todo';
 
 class App extends Component {
 // state 의 변화가 감지될 때마다 render() 함수 실행 
@@ -15,10 +17,14 @@ class App extends Component {
 
     return (
       <div className="App">
-        <BrowserRouter>
+        {/* <BrowserRouter>
           <Route exact path="/" component={Home} />
           <Route exact path="/dashboard" component={Dashboard} />
-        </BrowserRouter>
+        </BrowserRouter> */}
+
+        <Counter />
+        <hr />
+        <Todo />
       </div>
     );
   }

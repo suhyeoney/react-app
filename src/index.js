@@ -5,10 +5,21 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import { createLogger } from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer from './modules/config';
+
+const logger = createLogger();
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(logger)));
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </Provider>,
   // /public/index.html 에서 넘어옴 (id = 'root')
   document.getElementById('root')
 );
