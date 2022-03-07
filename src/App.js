@@ -5,8 +5,8 @@ import './App.css';
 import { BrowserRouter, Route} from 'react-router-dom';
 import Modal from 'react-modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Counter from './screens/Counter';
-import Todo from './screens/Todo';
+import Counter from './reduxSample/screens/Counter';
+import Todo from './reduxSample/screens/Todo';
 
 class App extends Component {
 // state 의 변화가 감지될 때마다 render() 함수 실행 
