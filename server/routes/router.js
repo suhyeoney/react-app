@@ -43,13 +43,13 @@ router.post('/updateAllTrainsInfo', (req, res) => {
     });
 });
 
-router.post('/insertNewTrainInfo', async (req, res) => {
-    let trainCode = req.body.trainCode;
-    let trainName = req.body.trainName;
-    let trainMaxSpeed = req.body.trasinMaxSpeed;
-    let trainMinCars = req.body.trainMinCars;
-    let trainMaxCars = req.body.trainMaxCars;
-    let connection = await database.getConnection();
+// router.post('/insertNewTrainInfo', async (req, res) => {
+//     let trainCode = req.body.trainCode;
+//     let trainName = req.body.trainName;
+//     let trainMaxSpeed = req.body.trasinMaxSpeed;
+//     let trainMinCars = req.body.trainMinCars;
+//     let trainMaxCars = req.body.trainMaxCars;
+//     let connection = await database.getConnection();
 
 //     try {
 //         await connection.beginTransaction();
