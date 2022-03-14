@@ -7,6 +7,7 @@ import Modal from 'react-modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Counter from './reduxSample/screens/Counter';
 import Todo from './reduxSample/screens/Todo';
+import ItemTable from './reduxSample/screens/ItemTable';
 
 class App extends Component {
 // state 의 변화가 감지될 때마다 render() 함수 실행 
@@ -25,6 +26,8 @@ class App extends Component {
         <Counter />
         <hr />
         <Todo />
+        <hr />
+        <ItemTable />
       </div>
     );
   }
